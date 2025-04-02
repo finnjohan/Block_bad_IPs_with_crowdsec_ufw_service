@@ -1,5 +1,5 @@
 #Blocks bad IPs with ufw and crowdsec, emails the result
-#Modify email, excluded IPs, log names and so on, below to your needs.
+#Modify email, excluded IPs, log names and so on, below to your needs. Requires postfix
 
 import re
 from collections import defaultdict
@@ -35,13 +35,12 @@ HTTP_METHODS = ['TRACE', 'DELETE', 'CONNECT']  # Removed OPTIONS from blanket su
 MAX_REQUESTS_PER_MINUTE = 5000
 LOG_FILE_PATTERNS = [
     '/var/log/apache2/access*.log',
-    '/var/log/apache2/swepub.ki.se-access-ssl.log',
     '/var/log/apache2/den-access-ssl.log',
     '/var/log/apache2/johan.log',
   
 ]
-EMAIL_RECIPIENT = 'linux.admin@kib.ki.se'
-EMAIL_SENDER = f"{socket.gethostname()}@domain.com"
+EMAIL_RECIPIENT = 'youremail@yourmail.com'
+EMAIL_SENDER = f"{socket.gethostname()}@yourdomain.com"
 SMTP_SERVER = 'localhost'
 SMTP_PORT = 25
 
@@ -93,7 +92,6 @@ EXCLUDED_SUBNETS = [
     ipaddress.ip_network('52.209.191.79/32'),
     ipaddress.ip_network('213.175.93.181/32'),
     ipaddress.ip_network('193.10.22.0/24'),
-
 ]
 
 WHITELISTED_IPS = ['193.10.248.66', '146.6.161.104', '89.45.236.228', '192.168.250.41']
