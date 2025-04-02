@@ -1,0 +1,20 @@
+[Unit]
+Description=Apache Log Monitor for Suspicious Activity
+After=network.target apache2.service
+Requires=apache2.service
+
+[Service]
+Type=simple
+#pattern_block_service.py blocks IPs while pattern_service.py just emails
+#ExecStart=/usr/bin/python3 /usr/local/ki_bin/DDOS/pattern_service.py
+ExecStart=/usr/bin/python3 /usr/local/ki_bin/DDOS/pattern_block_service.py
+Restart=always
+RestartSec=10
+User=root
+Group=root
+WorkingDirectory=/usr/local/bin
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
